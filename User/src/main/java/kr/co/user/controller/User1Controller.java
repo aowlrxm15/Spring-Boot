@@ -33,14 +33,7 @@ public class User1Controller {
 	
 	@PostMapping("/register")
 	public String register(User1VO vo) {
-		
-		System.out.println(vo.getUid());
-		System.out.println(vo.getName());
-		System.out.println(vo.getHp());
-		System.out.println(vo.getAge());
-		
 		service.insertUser1(vo);
-		
 		return "/user1/register";
 	}
 	
