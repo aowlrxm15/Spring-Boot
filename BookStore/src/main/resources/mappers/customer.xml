@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer">
+	<insert id="insertCustomer1">
+		INSERT INTO `customer` VALUES (#{custId}, #{name}, #{address}, #{phone});
+	</insert>
+	<select id="selectCustomer1" resultType="kr.co.bookstore.vo.CustomerVO">
+		select * from `customer` where `custId`=#{custId};
+	</select>
+	<select id="selectCustomer1s" resultType="kr.co.bookstore.vo.CustomerVO">
+		select * from `customer`;
+	</select>
+	<update id="updateCustomer1">
+		update `customer` set
+			`name`=#{name},
+			`address`=#{address},
+			`phone`=#{phone}
+		where
+			`custId`=#{custId};
+	</update>
+	<delete id="deleteCustomer1">
+		delete from `customer` where `custId`=#{custId};
+	</delete>
+</mapper>
