@@ -23,8 +23,8 @@
 			<td th:text="${user.hp}"></td>
 			<td th:text="${user.age}"></td>
 			<td>
-				<a href="@{/user1/modify(uid=${user.uid})}">수정</a>
-				<a href="@{/user1/delete(uid=${user.uid})}">삭제</a>
+				<a th:href="@{/user1/modify(uid=${user.uid})}">수정</a>
+				<a th:href="@{/user1/delete(uid=${user.uid})}">삭제</a>
 			</td>
 		</tr>
 	</table>
