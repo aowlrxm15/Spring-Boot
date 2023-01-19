@@ -26,6 +26,7 @@ public class UserService {
 		return dao.insertUser(vo);
 	}
 	
+	
 	public UserVO selectUser(String uid) {
 		return dao.selectUser(uid);
 	}
