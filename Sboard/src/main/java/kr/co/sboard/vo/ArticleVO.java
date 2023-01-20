@@ -4,7 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,6 +32,7 @@ public class ArticleVO {
 	
 	// 추가 필드
 	private String nick;
+	private FileVO fileVO;
 	
 	
 }
