@@ -1,5 +1,7 @@
 package kr.co.farmstory.security;
 
+import kr.co.farmstory.entity.UserEntity;
+import kr.co.farmstory.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class SecurityUserService {
+public class SecurityUserService implements UserDetailsService{
 
-	//@Autowired
-	//private UserRepo repo;
-	/*
+	@Autowired
+	private UserRepo repo;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// 스프링 시큐리티 인증 동작방식은 아이디/패스워드를 한번에 조회하는 방식이 아닌
@@ -32,5 +34,5 @@ public class SecurityUserService {
 
 	}
 
-	 */
+
 }
