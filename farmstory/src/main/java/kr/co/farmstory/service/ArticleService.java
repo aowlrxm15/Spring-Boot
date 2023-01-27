@@ -2,30 +2,87 @@ package kr.co.farmstory.service;
 
 import kr.co.farmstory.dao.ArticleDAO;
 import kr.co.farmstory.vo.ArticleVO;
+import kr.co.farmstory.vo.FileVO;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-
+import java.util.UUID;
+@Slf4j
 @Service
 public class ArticleService {
 
     @Autowired
     private ArticleDAO dao;
+    @Transactional
     public int insertArticle(ArticleVO vo){
-        return dao.insertArticle(vo);
+      int result = dao.insertArticle(vo);
+      FileVO fvo = fileUpload(vo);
+      if(fvo != null){
+          dao.insertFile(fvo);
+      }
+      return result;
+    }
+    @Transactional
+    public FileVO selectFile(int fno) {
+        FileVO vo= dao.selectFile(fno);
+        dao.updateDownload(fno);
+        return vo;
     }
     public ArticleVO selectArticle(int no){
         return dao.selectArticle(no);
     }
-    public List<ArticleVO> selectArticles(int start){
-        return dao.selectArticles(start);
+    public List<ArticleVO> selectArticles(int start,String cate){
+        return dao.selectArticles(cate,start);
     }
     public int updateArticle(ArticleVO vo){
         return dao.updateArticle(vo);
     }
     public int deleteArticle(int no){
         return dao.deleteArticle(no);
+    }
+
+    @Value("${spring.servlet.multipart.location}")
+    private String uploadPath;
+
+    public FileVO fileUpload(ArticleVO vo) {
+        // 첨부 파일
+        MultipartFile file = vo.getFname();
+        FileVO fvo = null;
+
+        if(!file.isEmpty()) {
+            // 시스템 경로
+            String path = new File(uploadPath).getAbsolutePath();
+
+            // 새 파일명 생성
+            String oName = file.getOriginalFilename();
+            String ext = oName.substring(oName.lastIndexOf("."));
+            String nName = UUID.randomUUID().toString()+ext;
+
+            // 파일 저장
+            try {
+                file.transferTo(new File(path, nName));
+            } catch (IllegalStateException e) {
+                log.error(e.getMessage());
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+
+            fvo = FileVO.builder()
+                    .parent(vo.getNo())
+                    .oriName(oName)
+                    .newName(nName)
+                    .build();
+        }
+
+        return fvo;
     }
 
     // 페이지 시작값

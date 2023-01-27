@@ -14,6 +14,7 @@ public class MainController {
 
     @GetMapping(value = {"/" , "index"})
     public String index(){
+
         return "index";
     }
 }
