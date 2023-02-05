@@ -50,9 +50,11 @@ public class BoardController {
         return "board/modify";
     }
     @GetMapping("board/view")
-    public String view(@RequestParam("no") int no, Model model){
+    public String view(int no, Model model, String group, String cate){
         ArticleVO article = service.selectArticle(no);
         model.addAttribute("article", article);
+        model.addAttribute("group", group);
+        model.addAttribute("cate", cate);
         return "board/view";
     }
     @GetMapping("board/write")
