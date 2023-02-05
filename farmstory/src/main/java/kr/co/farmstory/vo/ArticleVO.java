@@ -25,4 +25,7 @@ public class ArticleVO {
     // 추가 필드
     private String nick;
     private FileVO fileVO;
+    private String group;
+
+
 }

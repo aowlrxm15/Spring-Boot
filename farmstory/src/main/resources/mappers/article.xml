@@ -28,7 +28,7 @@
         select * from `board_file` where `fno`=${fno};
     </select>
     <update id="updateDownload">
-        update `board_file` set `download` = `download` + 1 where `fno`=#{fno};
+        update `board_file` set `download` = `download` + 1 where fno=#{fno};
     </update>
     <select id="selectArticles" resultType="kr.co.farmstory.vo.ArticleVO">
         select a.*, b.`nick` from `board_article` as a
@@ -40,7 +40,7 @@
     </select>
 
     <select id="selectCountTotal" resultType="int">
-        select count(`no`) from `board_article` where `parent` = 0;
+        select count(`no`) from `board_article` where `parent` = 0 and `cate`=#{cate};
     </select>
     <select id="selectArticle" resultMap="selectArticleResultMap">
         select * from `board_article` as a
@@ -48,6 +48,14 @@
         on a.no = b.parent
         where `no`=#{no};
     </select>
+
+    <update id="updateArticle" keyProperty="no" useGeneratedKeys="true">
+        update `board_article` set
+                `title`=#{title},
+                `content`=#{content}
+        <!--<selectKey keyColumn="file" keyProperty="file"></selectKey>-->
+                where `no`=#{no};
+    </update>
     <!-- 조회(selecct)결과를 상세하게 매핑하기 위한 사용자 정의 Map -->
     <resultMap id="selectArticleResultMap" type="kr.co.farmstory.vo.ArticleVO">
         <id column="no" property="no"/>
@@ -72,5 +80,8 @@
         </association>
     </resultMap>
 
+    <delete id="deleteArticle">
+        delete from `board_article` where `no`= #{no};
+    </delete>
 
 </mapper>
