@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.todo.dao.TodoDAO">
+    <insert id="insertTodoList" parameterType="kr.co.todo.vo.TodoVO"
+            useGeneratedKeys="true" keyProperty="todoNum" keyColumn="todoNum">
+        INSERT INTO todo SET todoContent = #{todoContent} , todoRdate = NOW();
+    </insert>
+
+    <select id="selectTodoList" resultType="kr.co.todo.vo.TodoVO">
+        SELECT * FROM todo;
+    </select>
+
+    <update id="updateTodoList">
+        UPDATE todo SET todoStatus = ${todoStatus} WHERE todoNum = ${todoNum};
+    </update>
+
+    <delete id="deleteTodoList" parameterType="kr.co.todo.vo.TodoVO">
+        DELETE FROM todo WHERE todoNum = #{todoNum};
+    </delete>
+</mapper>
