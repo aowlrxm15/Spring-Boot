@@ -6,12 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.ch09.service.User1Service;
 import kr.co.ch09.vo.User1VO;
@@ -23,6 +18,7 @@ public class User1Controller {
 	private User1Service service;
 	
 	@ResponseBody
+	@CrossOrigin(origins = "*") // 모든요청을 허용 개발단계에서 실험할때 사용
 	@GetMapping("/user1")
 	public List<User1VO> list1() {
 		List<User1VO> users = service.selectUser1s();
