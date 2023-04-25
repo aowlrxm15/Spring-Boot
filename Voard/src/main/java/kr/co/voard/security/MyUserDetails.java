@@ -1,5 +1,6 @@
 package kr.co.voard.security;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -7,17 +8,21 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.util.Assert;
 
 import kr.co.voard.entity.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.Singular;
 
 @Getter
+@Setter
 @Builder
 public class MyUserDetails implements UserDetails {
-
 	private static final long serialVersionUID = 1L;
-
+	
 	private UserEntity user;
 	
 	@Override
@@ -42,7 +47,7 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// 계정 만료 여부(True:만료안됨, False:만료)
+		// 계정 만료 여부(true:만료안됨, false:만료)
 		return true;
 	}
 
@@ -54,7 +59,7 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// 비밀번호 만료 여부(true:만료안됨, false:만료)
+		// 계정 비밀번호 만료 여부(true:만료안됨, false:만료)
 		return true;
 	}
 
@@ -63,5 +68,4 @@ public class MyUserDetails implements UserDetails {
 		// 계정 활성화 여부(true:활성화, false:비활성화)
 		return true;
 	}
-
 }

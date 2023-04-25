@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "board_user")
 public class UserEntity {
+
 	@Id
 	private String uid;
 	private String pass;
@@ -23,10 +24,11 @@ public class UserEntity {
 	private String nick;
 	private String email;
 	private String hp;
-	private Integer grade;
+	private int grade;
 	private String zip;
 	private String addr1;
 	private String addr2;
 	private String regip;
 	private String rdate;
+	
 }

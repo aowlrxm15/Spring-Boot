@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import kr.co.voard.entity.UserEntity;
 import kr.co.voard.repository.UserRepo;
 
+
 @Service
 public class SecurityUserService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepo repo;
 	
@@ -21,14 +22,15 @@ public class SecurityUserService implements UserDetailsService {
 		// 아이디만 이용해서 사용자 정보를 로딩하고 나중에 패스워드를 검증하는 방식
 		UserEntity user = repo.findById(username).get();
 		
-		// 유저 정보 확인
 		if(user == null) {
 			throw new UsernameNotFoundException(username);
 		}
 		
-		// Security 기본 사용자 객체 생성
-		MyUserDetails myUser = MyUserDetails.builder().user(user).build();
-		
+		// Security 기본 사용자 객체생성
+		MyUserDetails myUser = MyUserDetails.builder()
+								.user(user)								
+								.build();
+				
 		return myUser;
 	}
 
