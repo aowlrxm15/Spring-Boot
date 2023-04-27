@@ -27,6 +27,10 @@ public class UserService {
 		vo.setPass(passEncoded);
 		dao.insertUser(vo);
 	}
+
+	public int countByUid(String uid){
+		return repo.countByUid(uid);
+	}
 	public TermsVO selectTerms() {
 		return dao.selectTerms();
 	}
